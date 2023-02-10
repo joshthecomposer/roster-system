@@ -33,18 +33,36 @@
     </nav>
 </header>
 <body>
+    <div class="container bg-light rounded col-9 p-5">
+        <form action="/dorms/${d.id}/add/student" method="POST">
+            <select class="form-select" name="student_id">
+                <option selected>Select a student</option>
+                <c:forEach var="student" items="${students}">
+                    <option value="${student.id}">${student.name} <p class="font-italic">${student.dorm.name}</p></option>
+                </c:forEach>
+            </select>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+
 	<div class="container col-9 bg-light p-5 rounded">
         <h1 class="display-4"><c:out value="${d.name}"/> Students</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="s" items="${d.students}">
                     <tr>
                         <td><c:out value="${s.name}"/></td>
+                        <td>
+                            <form action="/dorms/${d.id}/remove/${s.id}" method="POST">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" href=>Remove Student</button>                   
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

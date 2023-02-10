@@ -1,6 +1,7 @@
 package com.jw.rosteronetomany.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,21 @@ public class StudentService {
 	public void deleteById(Long id) {
 		sRepo.deleteById(id);
 	}
+	
+	public Student findById(Long id) {
+		Optional<Student> o = sRepo.findById(id);
+		if (o.isPresent()) {
+			return o.get();
+		} else {
+			return null;
+		}
+			 
+	}
+	
+	public void removeFromDorm(Student s) {
+		s.setDorm(null);
+		sRepo.save(s);
+	}
+	
 	
 }
